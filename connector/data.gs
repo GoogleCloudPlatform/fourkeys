@@ -59,7 +59,8 @@ SELECT
     WHEN max(med_time_to_resolve_bucket) OVER () < 168 THEN "One week"
     WHEN max(med_time_to_resolve_bucket) OVER () < 672 THEN "One month"
     WHEN max(med_time_to_resolve_bucket) OVER () < 730 * 6 THEN "Six months"
-    ELSE "One year"
+    WHEN max(med_time_to_resolve_bucket) OVER () > 730 * 6 THEN "One year"
+    ELSE "null"
     END AS time_to_restore_buckets
 FROM
   (
